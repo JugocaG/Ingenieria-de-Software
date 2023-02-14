@@ -2,11 +2,21 @@ import tkinter as tk
 from tkinter import *
 import os
 from PIL import ImageTk, Image
+from tkinter import messagebox as mb
 
 ventana = tk.Tk()
 ventana.geometry("350x800")
 ventana.config(bd=10, background="White")
 
+wTotal = ventana.winfo_screenwidth()
+hTotal = ventana.winfo_screenheight()
+
+wVentana = 350
+hVentana = 790
+
+pWidth = round(wTotal/2-wVentana/2)
+pHeight = round(hTotal/2-hVentana/2)
+ventana.geometry(str(wVentana)+"x"+str(hVentana)+"+"+str(pWidth)+"+"+str(pHeight))
 
 framePrincipal = Frame(ventana)
 framePrincipal.grid(column=0,row=0)
@@ -21,6 +31,42 @@ usuario = tk.Label(framePrincipal, text="Juan G.")
 usuario.grid(column=3, row=0)
 usuario.config(background="White", font=("Verdana", 10))
 
+def cancelar():
+    Hola = 2
+
+def confirmar():
+    mb.showinfo("Reserva Exitosa", "Su reserva se ha realizado correctamente")
+
+
+def cuposUno():
+    ventanaCupo = tk.Toplevel()
+    ventanaCupo.title("Cupos disponibles")
+    ventanaCupo.config(width=330, height= 300)
+    wCupoVentana = 330
+    hCupoVentana = 300
+
+    pCupoWidth = round(wTotal/2-wCupoVentana/2)
+    pCupoHeight = round(hTotal/2-hCupoVentana/2)
+    ventanaCupo.geometry(str(wCupoVentana)+"x"+str(hCupoVentana)+"+"+str(pCupoWidth)+"+"+str(pCupoHeight))
+
+    circulo = Canvas(ventanaCupo, width=330, height=90, bg='white') 
+    circulo.grid(column=0, row=0, columnspan=2) 
+    circulo.create_oval(10, 10, 80, 80, width=5, fill='Green')
+    circulo.create_oval(90, 10, 160, 80, width=5, fill='Green')
+    circulo.create_oval(170, 10, 240, 80, width=5, fill='Green')
+    circulo.create_oval(250, 10, 320, 80, width=5, fill='Red')
+
+    textoCupo = tk.Label(ventanaCupo, text="Haga click en la cantidad de puestos que necesita")
+    textoCupo.grid(column=0, row=1, columnspan=2)
+
+    cancelarCupo = tk.Button(ventanaCupo, text="Cancelar", command=cancelar)
+    cancelarCupo.grid(column=1, row=2)
+
+    confirmarCupo = tk.Button(ventanaCupo, text="Confirmar", command=confirmar)
+    confirmarCupo.grid(column=0, row=2)
+
+
+#Primer Frame
 frameUno = Frame(framePrincipal)
 frameUno.grid(column=0, row=1, columnspan=4)
 frameUno.config(bd=5, relief="sunken", background="White")
@@ -30,7 +76,6 @@ nombreUno.grid(column=0, row=0, columnspan=3)
 nombreUno.config(fg="Blue",    # Foreground
              bg="White",   # Background
              font=("Verdana",25))
-
 
 calificacionUno = tk.Label(frameUno, text="4.8 ☆")
 calificacionUno.grid(column=0, row=1, columnspan=1)
@@ -60,11 +105,12 @@ precioUno = tk.Label(frameUno, text="$5.000")
 precioUno.grid(column=2, row=4, columnspan=1)
 precioUno.config(background="White", font=("Verdana", 10))
 
-ReservarUno = tk.Button(frameUno, text="Reservar")
+ReservarUno = tk.Button(frameUno, text="Reservar", command=cuposUno)
 ReservarUno.grid(column=0, row=5, columnspan=3)
 ReservarUno.config(background="White", font=("Verdana", 10))
 
 
+#Segundo Frame
 frameDos = Frame(framePrincipal)
 frameDos.grid(column=0, row=2, columnspan=4)
 frameDos.config(bd=5, relief="sunken", background="White")
@@ -74,7 +120,6 @@ nombreDos.grid(column=0, row=0, columnspan=3)
 nombreDos.config(fg="blue",    # Foreground
              bg="White",   # Background
              font=("Verdana",25))
-
 
 calificacionDos = tk.Label(frameDos, text="3.9 ☆")
 calificacionDos.grid(column=0, row=1, columnspan=1)
@@ -104,12 +149,12 @@ precioDos = tk.Label(frameDos, text="$5.000")
 precioDos.grid(column=2, row=4, columnspan=1)
 precioDos.config(background="White", font=("Verdana", 10))
 
-ReservarDos = tk.Button(frameDos, text="Reservar")
+ReservarDos = tk.Button(frameDos, text="Reservar", command=cuposUno)
 ReservarDos.grid(column=0, row=5, columnspan=3)
 ReservarDos.config(background="White", font=("Verdana", 10))
 
 
-
+#Tercer Frame
 frameTres = Frame(framePrincipal)
 frameTres.grid(column=0, row=3, columnspan=4)
 frameTres.config(bd=5, relief="sunken", background="White")
@@ -119,7 +164,6 @@ nombreTres.grid(column=0, row=0, columnspan=3)
 nombreTres.config(fg="blue",    # Foreground
              bg="White",   # Background
              font=("Verdana",25))
-
 
 calificacionTres = tk.Label(frameTres, text="5.0 ☆")
 calificacionTres.grid(column=0, row=1, columnspan=1)
@@ -149,7 +193,8 @@ precioTres = tk.Label(frameTres, text="$4.000")
 precioTres.grid(column=2, row=4, columnspan=1)
 precioTres.config(background="White", font=("Verdana", 10))
 
-ReservarTres = tk.Button(frameTres, text="Reservar")
+ReservarTres = tk.Button(frameTres, text="Reservar", command=cuposUno)
 ReservarTres.grid(column=0, row=5, columnspan=3)
 ReservarTres.config(background="White", font=("Verdana", 10))
+
 tk.mainloop()
